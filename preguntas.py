@@ -17,17 +17,20 @@ def pregunta_01():
     """
 
     # Cargue el dataset digits
-    digits = datasets.load_digits()
+    digits = datasets.load_digits(return_X_y=False)
 
     # Imprima los nombres de la variable target del dataset
     print(digits.target_names)
 
-    # Imprima las dimensinoes de matriz de datos
+    # Imprima las dimensiones de matriz de datos
     print(digits.data.shape)
 
     # Imprima las dimensiones del vector de salida
-    print(digits.target.shape)
 
+    print(digits.target.shape)
+    plt.gray()
+    plt.matshow(digits.images[2])
+    plt.show()
 
 def pregunta_02():
     """
@@ -40,30 +43,30 @@ def pregunta_02():
     from sklearn.model_selection import train_test_split
 
     # Cargue el dataset digits
-    digits = datasets.load_digits()
+    digits = datasets.load_digits(return_X_y=True)
 
     # Cree los vectors de características y de salida
-    X = digits.data
-    y = digits.target
+    X = digits[0]
+    y = digits[1]
 
     # Divida los datos de entrenamiento y prueba. Los conjuntos de datos están
     # estratificados. La semilla del generador de números aleatorios es 42.
     # El tamaño del test es del 20%
     X_train, X_test, y_train, y_test = train_test_split(
-        X, y, test_size=0.2, random_state=42, stratify=y
-    )
+       X, y, test_size=0.2, random_state=42, stratify=y  )
 
     # Cree un clasificador con siete vecinos
     knn = KNeighborsClassifier(n_neighbors=7)
 
     # Entrene el clasificador
-    knn.fit(X_train, y_train)
+    knn.fit(X_train,y_train)
 
     # Imprima la precisión (score) del clasificador en el conjunto de datos de prueba
     print(round(knn.score(X_test, y_test), 4))
 
 
 def pregunta_03():
+
     """
     Complete el código presentado a continuación.
     """
@@ -75,11 +78,11 @@ def pregunta_03():
     from sklearn.model_selection import train_test_split
 
     # Cargue el dataset digits
-    digits = datasets.load_digits()
+    digits = datasets.load_digits(return_X_y=True)
 
     # Cree los vectors de características y de salida
-    X = digits.data
-    y = digits.target
+    X = digits[0]
+    y = digits[1]
 
     # Divida los datos de entrenamiento y prueba. Los conjuntos de datos están
     # estratificados. La semilla del generador de números aleatorios es 42.
